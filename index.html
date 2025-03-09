@@ -6,37 +6,50 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="style.css" />
     <title>Вячеслав</title>
+
 </head>
 
 <body>
     <header>
-        <nav>
-            <a class="hlink" href="https://ya.ru/" >Главная</a>
+        <nav class="nav_menu">
+            <a class="hlink" href="https://ya.ru/">Главная</a>
             <a class="hlink" href="https://ya.ru/">О нас</a>
             <a class="hlink" href="https://ya.ru/">Галерея</a>
             <a class="hlink" href="https://ya.ru/">Что-то</a>
+            <a class="hlink" href="animation.html" target="_blank">Анимация</a>
         </nav>
-        <a class="hlink" href="animation.html" target="_blank">Анимация</a>
+    
+        <div class="burger" id="burger">&#9776;</div>
     </header>
-    <main>
-        
+    
+    <main class="content">
+        <button id="scrollToTop">⬆ Наверх</button>
         <section class="title">
             <div class="titlediv">
-                <h1>Вячеслав Синяков</h1>
+                <h1 name="h_1">Вячеслав Синяков</h1>
+                <button onclick="change_title()"></button>
                 <p>
                     Lorem ipsum dolor sit, amet consectetur adipisicing elit. Cum molestias, cumque maiores magnam
                     inventore quia, similique laboriosam a voluptatum quos quas distinctio velit, ab magni. Voluptates
                     sequi quasi autem corrupti.
                 </p>
                 <img src="img/space.jpeg" alt="тут был космос">
-                <button>Привет!</button>
+                <button id="run_button" onclick="color_()">Привет!</button>
             </div>
         </section>
+
+        
 
         <section>
             <div class="cardscontainer">
                 <div class="cards">
-                    <img src="img/code.jpeg" width="200px">
+                    <div class="slider-div">
+                        <img id="slider-img" src="img/code.jpeg">
+                    </div>
+                    <div class="slider_button">
+                        <button onclick="prev_img()">&#11013;</button>
+                        <button onclick="next_img()">&#10145;</button>
+                    </div>
                     <h3>Мой проект</h3>
                     <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Illo aliquid suscipit inventore
                         similique incidunt reiciendis quisquam doloremque fugit magni in autem veritatis cum beatae
@@ -95,6 +108,8 @@
                         <input class="f_input" placeholder="example@mail.ru" type="email" required>
                     </label>
 
+
+
                     <fieldset>
                         <legend>Как с вами можно связаться?</legend>
                         <div>
@@ -115,7 +130,19 @@
             </div>
         </section>
 
+        <h3>Массивы</h3>
+        <ul id="numberList">
+
+        </ul>
+
     </main>
+
+    <div class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p>Это модальное окно</p>
+        </div>
+    </div>
 
     <footer>
         <div>
@@ -141,5 +168,7 @@
 
 
 </body>
-<script src="main.js"></script>
+
 </html>
+
+<script src="main.js"></script>
