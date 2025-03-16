@@ -1,24 +1,20 @@
 let canvas = document.getElementById("gameCanvas");
 let ctx = canvas.getContext("2d");
 
-// Адаптивные размеры
 function resizeCanvas() {
-    canvas.width = window.innerWidth * 0.9; // 90% ширины экрана
-    canvas.height = window.innerHeight * 0.6; // 60% высоты экрана
+    canvas.width = Math.min(800, window.innerWidth * 0.9);
+    canvas.height = Math.min(500, window.innerHeight * 0.7);
 }
 resizeCanvas();
 window.addEventListener("resize", resizeCanvas);
 
-// Параметры игры
-const paddleWidth = canvas.width * 0.2, paddleHeight = 10, ballRadius = 8;
+const paddleHeight = 10, ballRadius = 8;
+let paddleWidth = canvas.width * 0.2;
 
 let paddleX = (canvas.width - paddleWidth) / 2;
 let ballX = canvas.width / 2;
 let ballY = canvas.height / 2;
-
-let ballSpeedX = 3;
-let ballSpeedY = -3;
-
+let ballSpeedX = 3, ballSpeedY = -3;
 let rightPressed = false, leftPressed = false;
 
 function drawBall() {
@@ -34,30 +30,24 @@ function drawPaddle() {
     ctx.fillRect(paddleX, canvas.height - paddleHeight - 10, paddleWidth, paddleHeight);
 }
 
-// Сенсорное управление
 canvas.addEventListener("touchmove", (e) => {
     let touchX = e.touches[0].clientX - canvas.offsetLeft;
     paddleX = touchX - paddleWidth / 2;
-    if (paddleX < 0) paddleX = 0;
-    if (paddleX > canvas.width - paddleWidth) paddleX = canvas.width - paddleWidth;
+    paddleX = Math.max(0, Math.min(paddleX, canvas.width - paddleWidth));
 });
 
-document.addEventListener("keydown", keyDownHandler);
-document.addEventListener("keyup", keyUpHandler);
-
-function keyDownHandler(e) {
+document.addEventListener("keydown", (e) => {
     if (e.key === "ArrowRight") rightPressed = true;
     else if (e.key === "ArrowLeft") leftPressed = true;
-}
-
-function keyUpHandler(e) {
+});
+document.addEventListener("keyup", (e) => {
     if (e.key === "ArrowRight") rightPressed = false;
     else if (e.key === "ArrowLeft") leftPressed = false;
-}
+});
 
+let animation;
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-
     drawPaddle();
     drawBall();
 
@@ -74,7 +64,27 @@ function draw() {
         ballSpeedY = -ballSpeedY;
     }
 
-    requestAnimationFrame(draw);
+    if (ballY - ballRadius > canvas.height) {
+        setTimeout(() => {
+            if (confirm("Вы проиграли! Хотите начать заново?")) {
+                restartGame();
+            } else {
+                cancelAnimationFrame(animation);
+            }
+        }, 100);
+        return;
+    }
+
+    animation = requestAnimationFrame(draw);
+}
+
+function restartGame() {
+    paddleX = (canvas.width - paddleWidth) / 2;
+    ballX = canvas.width / 2;
+    ballY = canvas.height / 2;
+    ballSpeedX = 3;
+    ballSpeedY = -3;
+    draw();
 }
 
 draw();

@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+/*
 let color = ["yellow", "red", "purple","coral","#464444"];
 let bodycolor = document.body;
 let k=0;
@@ -86,22 +86,24 @@ let content = document.querySelector(".content");
 
 burger.addEventListener("click", () => {
    if (menu.classList.contains("active")) {
-       // Закрытие меню
-      menu.style.height = "0px";
-      content.style.marginTop = "0px";
+       menu.style.height = "0px";
+       content.style.marginTop = "0px";
    } else {
-       // Открытие меню
        menu.style.height = menu.scrollHeight + "px";
        content.style.marginTop = menu.scrollHeight + "px";
    }
    menu.classList.toggle("active");
 });
 
-document.addEventListener("click", (event)=>{
-   if (!event.target.closest("header")){
+// Закрытие при клике вне меню
+document.addEventListener("click", (event) => {
+   if (!event.target.closest("header") && menu.classList.contains("active")) {
       menu.classList.remove("active");
+      menu.style.height = "0px";
+      content.style.marginTop = "0px";
    }
 });
+
 
 
 let modal = document.querySelector(".modal");
@@ -369,7 +371,7 @@ function change_title(){
 
 
 
-=======
+
 /* 
 let a=5;
 */
@@ -397,4 +399,4 @@ console.log(Number(a)*Number(b)*Number(c));
 
 
 
->>>>>>> 6a235925faf2af51c36f63f2d14ac546b602f809
+
