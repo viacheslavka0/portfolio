@@ -5,10 +5,8 @@
     background-color:#a2a2ff;
     padding: 10px;
     border-radius: 10px;
-    height:fit-content;
-    
-
-
+    height: 20px;
+    margin: 0;
 }
 
 ::selection{
@@ -334,6 +332,7 @@ body{
     justify-content: space-between;
     width: 40%;
     transition: all 0.3s ease;
+    padding: 0%;
 }
 
 .burger{
