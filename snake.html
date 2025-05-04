@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Змейка</title>
+
+    <style>
+        canvas {
+            background-color: aliceblue;
+        }
+    </style>
+</head>
+
+<body>
+    <h2 id="score">Счет: 0 | Рекорд: 0</h2>
+    <canvas id="game1"></canvas>
+
+    <script>
+        let canvas = document.getElementById("game1");
+        let ctx = canvas.getContext("2d");
+
+        canvas.width = 400;
+        canvas.height = 400;
+
+        const box = 20;
+
+        let snake = [{ x: 5 * box, y: 5 * box }];
+
+        let food = {
+            x: Math.floor(Math.random() * (canvas.width / box)) * box,
+            y: Math.floor(Math.random() * (canvas.height / box)) * box
+        }
+
+        let dir = "RIGHT";
+        let score = 0;
+
+        let best = localStorage.getItem("bestScore") || 0;
+
+        document.addEventListener("keydown", (e) => {
+            if (e.key === "ArrowLeft" && dir !== "RIGHT") dir = "LEFT";
+            if (e.key === "ArrowRight" && dir !== "LEFT") dir = "RIGHT";
+            if (e.key === "ArrowUp" && dir !== "DOWN") dir = "UP";
+            if (e.key === "ArrowDown" && dir !== "UP") dir = "DOWN";
+        })
+
+        function checkCollision(head, body) {
+            for (let i = 0; i < body.length; i++) {
+                if (head.x === body[i].x && head.y === body[i].y) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        function updateScore(){
+            document.getElementById("score").textContent = `Счет: ${score} | Рекорд: ${best}`;
+        }
+
+        function draw() {
+            ctx.fillStyle = "#f28500";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            for (let i = 0; i < snake.length; i++) {
+                ctx.fillStyle = (i == 0) ? "green" : "lime";
+                ctx.fillRect(snake[i].x, snake[i].y, box, box);
+            }
+
+            ctx.fillStyle = "red";
+            ctx.fillRect(food.x, food.y, box, box);
+
+            let headX = snake[0].x;
+            let headY = snake[0].y;
+
+            if (dir === "RIGHT") headX += box;
+            if (dir === "LEFT") headX -= box;
+            if (dir === "UP") headY -= box;
+            if (dir === "DOWN") headY += box;
+
+            if (headX === food.x && headY === food.y) {
+                score++;
+                if (score>best){
+                    best=score;
+                    localStorage.setItem("bestScore", best);
+                }
+                food = {
+                    x: Math.floor(Math.random() * (canvas.width / box)) * box,
+                    y: Math.floor(Math.random() * (canvas.height / box)) * box
+                };
+            } else {
+                snake.pop();
+            }
+            updateScore();
+
+            if (headX < -box || headX > canvas.width ||
+                headY < -box || headY > canvas.height || checkCollision({ x: headX, y: headY }, snake)) {
+                clearInterval(game);
+                alert("Game over");
+                location.reload();
+            }
+
+            let newHead = { x: headX, y: headY };
+            snake.unshift(newHead);
+
+        }
+        updateScore();
+        let game = setInterval(draw, 200);
+
+
+    </script>
+</body>
+
+</html>

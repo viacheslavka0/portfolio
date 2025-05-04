@@ -13,7 +13,7 @@ function color_() {
       k++;  
    }
 }
-
+*/
 let image = ["img/code.jpeg",
             "img/slider2.png",
             "img/slider3.png"]
