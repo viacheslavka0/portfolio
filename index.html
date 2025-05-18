@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -20,10 +19,10 @@
             <a class="hlink" href="animation.html" target="_blank">Анимация</a>
             <a class="hlink" href="game.html" target="_blank">Игра</a>
         </nav>
-    
+
         <div class="burger" id="burger">&#9776;</div>
     </header>
-    
+
     <main class="content">
         <button id="scrollToTop">⬆ Наверх</button>
         <section class="title">
@@ -40,7 +39,7 @@
             </div>
         </section>
 
-        
+
 
         <section>
             <div class="cardscontainer">
@@ -97,22 +96,26 @@
 
         <section class="form_section">
             <div class="form_container">
-                <form>
+                <form id="myForm">
                     <label>
                         <p>Как вас зовут?</p>
-                        <input class="f_input" placeholder="Иванов Иван" type="text" required>
+                        <input class="f_input" placeholder="Иванов Иван" type="text" name="name" required>
                     </label>
                     <label>
-                        <p>Сколько вам лет?</p>
-                        <input class="f_input" placeholder="20" type="number" min="3" max="99" required>
+                        <p>Ваш номер телефона</p>
+                        <input class="f_input" placeholder="+7(___)___-__" type="tel" name="tel" required>
                     </label>
 
                     <label>
-                        <p>Ваша почта</p>
-                        <input class="f_input" placeholder="example@mail.ru" type="email" required>
+                        <p>Выберите услугу</p>
+                        <select name="service">
+                            <option>Создание сайта</option>
+                            <option>Написание программы</option>
+                            <option>Создание 3D-модели</option>
+                            <option>Другое</option>
+                        </select>
+
                     </label>
-
-
 
                     <fieldset>
                         <legend>Как с вами можно связаться?</legend>
@@ -131,6 +134,7 @@
                     </fieldset>
                     <button type="submit" class="submit_button">Отправить</button>
                 </form>
+                <p id="status"></p>
             </div>
         </section>
 
@@ -141,8 +145,8 @@
 
         <div id="card-container" style="width: 100%; height: 500px; background-color: #fff; border: 1px solid #ccc;">
             <div id="model-container" style="width: 100%; height: 100%"></div>
-          </div>
-          
+        </div>
+
 
     </main>
 

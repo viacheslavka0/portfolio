@@ -131,7 +131,7 @@ modal.addEventListener("click",(event)=>{
 modal_cont.addEventListener("click",(event)=>{
    event.stopPropagation();
 })
-
+/*
 /*
 let burger = document.getElementById("burger");
 let menu = document.querySelector(".nav_menu");
@@ -385,7 +385,7 @@ console.log(Number(a)*Number(b)*Number(c));
 */
 
 
-
+/*
  let a=prompt();
 
  if(a%2==0){
@@ -394,8 +394,38 @@ console.log(Number(a)*Number(b)*Number(c));
  else{
     console.log("Нечетное");
  }
+*/
 
+let form = document.getElementById("myForm");
+let status1 = document.getElementById("status");
 
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const data = {
+    name: form.name.value,
+    tel: form.tel.value,
+    service: form.service.value,
+    connect: form.connect.value
+  };
+
+  try {
+    await fetch("https://script.google.com/macros/s/AKfycbwp9WCnzfeMoIlJPKeGtvTZnOp23A9Ss7W8dj9gsltAJ9__05X7r9VpypQeopSDmx9b9A/exec", {
+      method: "POST",
+      mode: "no-cors", // не позволяет получить ответ, но данные дойдут
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(data)
+    });
+
+    status1.textContent = "Отправлено!";
+    form.reset();
+  } catch (err) {
+    console.log(err);
+    status1.textContent = "Ошибка отправки";
+  }
+});
 
 
 
